@@ -21,7 +21,7 @@ export default {
   methods: {
     async confirmDelete() {
       console.log("id para ser excluido: " + this.task.id);
-      
+
       try {
         if (this.task.id) {
           await axios.delete(

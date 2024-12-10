@@ -1,7 +1,7 @@
 <template>
   <div id="backgroundHome">
     <!-- <NavbarUser /> -->
-    <button @click="showModal = true" class="add-button">Postar Itens</button>
+    <button @click="showModal = true" class="add-button">Postar Tarefas</button>
     <ModalAction
       v-if="showModal"
       :taskData="selectedTask"
@@ -26,7 +26,7 @@
   </div>
 </template>
 
-<script> 
+<script>
 import AppListTasks from "../components/AppListTasks.vue";
 import ModalAction from "../components/ModalAction.vue";
 import ModalConfirm from "../components/ModalConfirm.vue";
@@ -41,9 +41,9 @@ export default {
   data() {
     return {
       showModal: false,
-      isConfirmDeleteModalOpen: false, 
+      isConfirmDeleteModalOpen: false,
       selectedTask: null,
-      taskToDelete: null,  
+      taskToDelete: null,
     };
   },
   methods: {
@@ -71,9 +71,9 @@ export default {
       } catch (error) {
         console.error("Erro ao excluir task:", error);
       } finally {
-        this.isConfirmDeleteModalOpen = false;  
-        this.taskToDelete = null; 
-        this.refreshTasks();  
+        this.isConfirmDeleteModalOpen = false;
+        this.taskToDelete = null;
+        this.refreshTasks();
       }
     },
     async deleteTask(taskId) {
@@ -86,9 +86,11 @@ export default {
 </script>
 <style scoped>
 * {
-  margin: 0; 
+  margin: 0;
   padding: 0;
-  box-sizing: border-box; 
+  box-sizing: border-box;
+
+  background-color: beige;
 }
 #backgroundHome {
   background-color: beige;

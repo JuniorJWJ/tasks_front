@@ -15,6 +15,7 @@
               v-model="name"
               class="form-control"
               placeholder="Nome da tarefa"
+              autocomplete="off"
               required
             />
             <div v-if="errorMessage" class="error-message">
@@ -82,7 +83,7 @@ export default {
   methods: {
     async onSubmit() {
       const task = { name: this.name, cost: this.cost, dueDate: this.dueDate };
-      console.log("task:  ", task)
+      console.log("task:  ", task);
       try {
         if (this.taskData) {
           await axios.put(
@@ -164,7 +165,7 @@ export default {
 }
 
 .form-control {
-  width: 100%;
+  width: 90%;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;

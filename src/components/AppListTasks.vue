@@ -20,9 +20,6 @@
           <td>R$ {{ task.cost }}</td>
           <td>{{ formatDate(task.due_date) }}</td>
           <td>
-            <button @click="$emit('show-task', task)" title="Ver">
-              <i class="fas fa-eye"></i>
-            </button>
             <button @click="$emit('edit-task', task)" title="Editar">
               <i class="fas fa-edit"></i>
             </button>
@@ -57,11 +54,11 @@ export default {
   name: "AppListTasks",
   data() {
     return {
-      tasks: [], 
+      tasks: [],
     };
   },
   async created() {
-    await this.getTasks(); 
+    await this.getTasks();
   },
   methods: {
     async getTasks() {
@@ -84,51 +81,46 @@ export default {
       await this.getTasks();
     },
     async moveTaskUp(index) {
-    if (index > 0) {
-      
-      console.log(`Movendo a tarefa para cima: ID ${this.tasks[index].id}`);
+      if (index > 0) {
+        console.log(`Movendo a tarefa para cima: ID ${this.tasks[index].id}`);
 
-      
-      [this.tasks[index - 1], this.tasks[index]] = [
-        this.tasks[index],
-        this.tasks[index - 1],
-      ];
+        [this.tasks[index - 1], this.tasks[index]] = [
+          this.tasks[index],
+          this.tasks[index - 1],
+        ];
 
-      
-      await this.updateAllOrders();
-    }
-  },
+        await this.updateAllOrders();
+      }
+    },
 
-  async moveTaskDown(index) {
-    if (index < this.tasks.length - 1) {
-      
-      console.log(`Movendo a tarefa para baixo: ID ${this.tasks[index].id}`);
+    async moveTaskDown(index) {
+      if (index < this.tasks.length - 1) {
+        console.log(`Movendo a tarefa para baixo: ID ${this.tasks[index].id}`);
 
-      
-      [this.tasks[index + 1], this.tasks[index]] = [
-        this.tasks[index],
-        this.tasks[index + 1],
-      ];
+        [this.tasks[index + 1], this.tasks[index]] = [
+          this.tasks[index],
+          this.tasks[index + 1],
+        ];
 
-      
-      await this.updateAllOrders();
-    }
-  },
+        await this.updateAllOrders();
+      }
+    },
 
-  async updateAllOrders() {
-    try {
-      
-      const tasksOrder = this.tasks.map((task, index) => ({
-        id: task.id,
-        order_field: index,
-      }));
+    async updateAllOrders() {
+      try {
+        const tasksOrder = this.tasks.map((task, index) => ({
+          id: task.id,
+          order_field: index,
+        }));
 
-      
-      await axios.put(`${process.env.VUE_APP_API_URL}/task/update-order`, { tasksOrder });
-    } catch (error) {
-      console.error("Erro ao atualizar a ordem das tarefas:", error);
-    }
-  },
+        console.log("taskOrder", tasksOrder);
+        await axios.put(`${process.env.VUE_APP_API_URL}/task/update-order`, {
+          tasksOrder,
+        });
+      } catch (error) {
+        console.error("Erro ao atualizar a ordem das tarefas:", error);
+      }
+    },
   },
 };
 </script>
@@ -165,6 +157,20 @@ h2 {
   background-color: #0288d1;
   color: white;
 }
+.task-table th:first-child {
+  border-top-left-radius: 8px; /* Arredonda a beirada superior esquerda */
+}
+
+.task-table th:last-child {
+  border-top-right-radius: 8px; /* Arredonda a beirada superior direita */
+}
+.task-table tr:last-child td:first-child {
+  border-bottom-left-radius: 8px; /* Arredonda a beirada inferior esquerda */
+}
+
+.task-table tr:last-child td:last-child {
+  border-bottom-right-radius: 8px; /* Arredonda a beirada inferior direita */
+}
 
 .task-table td button {
   background: none;
@@ -180,15 +186,12 @@ h2 {
   cursor: not-allowed;
 }
 
-.task-table td button:hover:enabled {
-  color: #01579b;
+.task-table tr:hover {
+  background-color: #01579b;
+  color: white;
 }
 
-.task-table tr:hover {
-  background-color: #f1f1f1;
-}
- 
 .highlight-cost {
-  background-color: yellow;
+  background-color: rgb(193, 222, 228);
 }
 </style>

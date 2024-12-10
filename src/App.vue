@@ -20,5 +20,12 @@ main {
   justify-content: space-between;
   align-items: center;
   overflow-x: hidden;
+  background-color: beige;
+}
+html,
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 </style>
